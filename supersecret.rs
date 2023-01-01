@@ -48,9 +48,13 @@ fn read_image(path: &str) -> Image
         crash_msg(&msg)
     });
 
-    if img_data.bit_depth != BitDepth::Eight
+    match img_data.bit_depth
     {
-        crash_msg("image bit depth isnt 8 ; -; its ova")
+        BitDepth::Four | BitDepth::Two | BitDepth::One =>
+        {
+            crash_msg("image bit depth is less than 8 ; -; its ova")
+        },
+        _ => ()
     }
 
     let (has_alpha, bpp) = match img_data.color_type
